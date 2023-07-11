@@ -1,0 +1,43 @@
+---
+title: "Arkansas Razorbacks Men's Basketball 2022-23"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+devtools::install_github("lbenz730/ncaahoopR")
+
+library(ncaahoopR)
+library(tidyverse)
+library(lubridate)
+library(ggplot2)
+library(ggthemes)
+library(ggrepel)
+library(gganimate)
+library(ggforce)
+library(ggtext)
+library(ggalt)
+library(ggsci)
+library(ggpubr)
+library(ggbeeswarm)
+```
+
+# Data
+
+```{r, echo=FALSE}
+ark_pbp <- get_pbp("Arkansas", "2022-23")
+ark_roster <- get_roster("Arkansas", "2022-23")
+ark_schedule <- get_schedule("Arkansas", "2022-23")
+ark_season_box <- season_boxscore("Arkansas", "2022-23", aggregate = "average")
+```
+
+# Visualizations
+
+## Circle Assist Network
+
+A circle assist network in R is a function that creates a circular plot of how players on a basketball team assist each other for scoring points. Here, we are doing this for the entire 2022-23 Arkansas basketball season. Additionally, we can highlight a specific player if desired which in this case is Anthony Black, the starting PG for the Razorbacks this year.
+
+```{r}
+circle_assist_net("Arkansas", "2022-23", highlight_player = "Anthony Black", highlight_color = "#9D2235", three_weights = T, 
+threshold = 0.1, message = NA, return_stats = T)
+```
